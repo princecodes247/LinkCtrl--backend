@@ -1,14 +1,22 @@
 const mongoose = require("mongoose");
+const shortid = require("shortid");
 const bcrypt = require("bcrypt");
 const { BCRYPT_SALT } = require("./../config");
 const Schema = mongoose.Schema;
 
 const linkSchema = new Schema(
   {
+    // Generate id for each link with shortId
+    id: {
+      type: String,
+      // required: true,
+      unique: true,
+      default: shortid.generate(),
+    },
     name: {
       type: String,
       trim: true,
-      required: [true, "Link Name is required"],
+      // required: [true, "Link Name is required"],
     },
     url: {
       type: String,
@@ -25,24 +33,42 @@ const linkSchema = new Schema(
       trim: true,
       default: [],
     },
-    owner: {
+    user: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: [true, "Owner is required"],
+      // required: [true, "Owner is required"],
     },
     max_clicks: {
       type: Number,
       default: 0,
     },
     clicks: {
-      type: Number,
-      default: 0,
+      type: [Date],
+      default: [],
     },
-    role: {
+    expires: {
+      type: Date || null,
+      default: null,
+    },
+    password: {
       type: String,
       trim: true,
-      enum: ["user", "admin"],
-      default: "user",
+      default: "",
+    },
+
+    dataTypes: {
+      type: [String],
+      trim: true,
+      default: [],
+    },
+    data: {
+      type: Schema.Types.Mixed,
+      default: {},
+    },
+
+    isPrivate: {
+      type: Boolean,
+      default: false,
     },
     isActive: {
       type: Boolean,
@@ -63,4 +89,4 @@ linkSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("users", linkSchema);
+module.exports = mongoose.model("links", linkSchema);

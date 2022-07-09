@@ -1,38 +1,21 @@
-# LinkCtrl--backend
+# LinkCtrl--Backend
 
-This project was generated with [BàngáJS](https://bangajs.netlify.app/) v1.1.0.  
+LinkCtrl is a simple, easy-to-use, and powerful link shortening service.
+It is designed to be simple and easy to use, yet powerful and flexible.
+LinkCtrl has a simple and intuitive interface, and is designed to be easy to use.
 
-## Installation
+## Features
 
-1. Install dependencies - `npm install`
-
-2. Create a new file `.env` if it doesn't exist and copy the contents of `env.dev` into it to be able to run your server on production environment. 
-
-3. Then you need to provide values for the configuration env files at the `src/config/env directory`.
-
-
-## Running the server locally
-
-1. Start up the server - Run `npm start` | `npm run dev`
-
-2. Server should be running on http://localhost:2020/ by default
-
-## Code scaffolding
-
-Run `banga generate <type> <name>` to generate a new file types. Visit [here](https://bangajs.netlify.app/#banga-generate) for more info.
-
-## Routes
-
-| Routes                                                           | Description                              | Auth roles                            |
-| -----------------------------------------------------------------|----------------------------------------- | ------------------------------------- |
-| [POST] &nbsp; /api/auth/sign-up                                  | Create a new account                     | none                                     
-| [POST] &nbsp; /api/auth/sign-in                                  | User sign in                             | none                                      
-| [POST] &nbsp; /api/auth/request-email-verification               | Resend verfication email                 | none                                     
-| [POST] &nbsp; /api/auth/verify-email                             | Email verification                       | none                                     
-| [POST] &nbsp; /api/auth/request-password-reset                   | Sends a request password email           | none                                      
-| [POST] &nbsp; /api/auth/reset-password                           | Reset password form handler              | none                                      
-| [POST] &nbsp; /api/users                                         | Create a user                            | User                                  
-| [GET] &nbsp; /api/users                                          | Get all users                            | Admin                                 
-| [GET] &nbsp; /api/users/:userId                                  | Get a user                               | User                                  
-| [UPDATE] &nbsp; /api/users/::userId                              | Update a user                            | User                                  
-| [DELETE] &nbsp; /api/users/:userId                               | Delete a user                            | Admin                                 
+- [*] Quick Short - Shorten links with a single click.
+- [] Protected links with a password.
+- Custom link endpoints - You can create your own custom endpoints for your links.
+- Custom domains - Use your own domain name.
+- Link analytics - Track link clicks and views.
+- Notifications - Get notified when your link is clicked.
+- Link expiration - Set a link expiration date.
+- Link Limit - Limit the number of clicks on a link.
+- Link Limit per IP - Limit the number of clicks on a link per IP.
+- Link redirect - Redirect a link to a different page.
+- Link preview - Preview a link in a popup.
+- Link QR code - Generate a QR code for a link.
+- Link Tree - Generate a link tree.
