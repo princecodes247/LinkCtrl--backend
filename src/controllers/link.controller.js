@@ -1,32 +1,37 @@
-const LinkService = require("./../services/link.service");
-const response = require("./../utils/response");
+const LinkService = require('../services/link.service');
+const response = require('../utils/response');
 
 class LinkContoller {
   async create(req, res) {
     const result = await LinkService.create(req.body);
-    res.status(200).send(response("Link created", result));
+    res.status(200).send(response('Link created', result));
+  }
+
+  async createRandom(req, res) {
+    const result = await LinkService.createRandom(req.body);
+    res.status(200).send(response('Link created with random id', result));
   }
 
   async getAll(req, res) {
     const result = await LinkService.getAll();
-    res.status(200).send(response("All links", result));
+    res.status(200).send(response('All links', result));
   }
 
   async getOne(req, res) {
     const result = await LinkService.getOne(req.params.linkId);
-    res.status(200).send(response("Link data", result));
+    res.status(200).send(response('Link data', result));
   }
 
   async update(req, res) {
     const result = await LinkService.update(req.params.linkId, req.body);
-    res.status(200).send(response("Link updated", result));
+    res.status(200).send(response('Link updated', result));
   }
 
   async useLink(req, res) {
     const result = await LinkService.useLink(req.params.linkId);
     // res.status(200).send(response("Link used", result));
     if (result.password) {
-      res.send("Password protected");
+      res.send('Password protected');
     }
 
     // Redirect to the link
@@ -35,7 +40,7 @@ class LinkContoller {
 
   async delete(req, res) {
     const result = await LinkService.delete(req.params.linkId);
-    res.status(200).send(response("Link deleted", result));
+    res.status(200).send(response('Link deleted', result));
   }
 }
 

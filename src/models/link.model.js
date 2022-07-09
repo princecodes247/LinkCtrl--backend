@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
-const shortid = require("shortid");
-const bcrypt = require("bcrypt");
-const { BCRYPT_SALT } = require("./../config");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const shortid = require('shortid');
+const bcrypt = require('bcrypt');
+const { BCRYPT_SALT } = require('../config');
+
+const { Schema } = mongoose;
 
 const linkSchema = new Schema(
   {
@@ -21,12 +22,12 @@ const linkSchema = new Schema(
     url: {
       type: String,
       trim: true,
-      required: [true, "Link URL is required"],
+      required: [true, 'Link URL is required'],
     },
     description: {
       type: String,
       trim: true,
-      default: "",
+      default: '',
     },
     tags: {
       type: [String],
@@ -35,7 +36,7 @@ const linkSchema = new Schema(
     },
     user: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       // required: [true, "Owner is required"],
     },
     max_clicks: {
@@ -53,7 +54,7 @@ const linkSchema = new Schema(
     password: {
       type: String,
       trim: true,
-      default: "",
+      default: '',
     },
 
     dataTypes: {
@@ -80,8 +81,8 @@ const linkSchema = new Schema(
   }
 );
 
-linkSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+linkSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
 
   const hash = await bcrypt.hash(this.password, BCRYPT_SALT);
   this.password = hash;
@@ -89,4 +90,4 @@ linkSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("links", linkSchema);
+module.exports = mongoose.model('links', linkSchema);
