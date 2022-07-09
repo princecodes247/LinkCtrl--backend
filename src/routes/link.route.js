@@ -4,8 +4,8 @@ const auth = require('../middlewares/auth.middleware');
 const upload = require('../middlewares/multer.middleware');
 const { role } = require('../config');
 
-router.post('/', LinkController.create);
-router.post('/:linkId', LinkController.createRandom);
+router.post('/', LinkController.createRandom);
+router.post('/:linkId', LinkController.create);
 router.get('/', auth(role.ADMIN), LinkController.getAll);
 router.get('/:linkId', auth(role.USER), LinkController.getOne);
 router.put('/:linkId', auth(role.USER), upload('image'), LinkController.update);

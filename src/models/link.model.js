@@ -81,14 +81,13 @@ const linkSchema = new Schema(
   }
 );
 
-linkSchema.pre('save', async (next) => {
+linkSchema.pre('save', async function hashPassword(next) {
   if (!this.isModified('password')) return next();
 
   const hash = await bcrypt.hash(this.password, BCRYPT_SALT);
   this.password = hash;
 
-  next();
-  return this;
+  return next();
 });
 
 module.exports = mongoose.model('links', linkSchema);

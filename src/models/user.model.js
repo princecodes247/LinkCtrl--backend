@@ -43,14 +43,13 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function hashPassword(next) {
   if (!this.isModified('password')) return next();
 
   const hash = await bcrypt.hash(this.password, BCRYPT_SALT);
   this.password = hash;
 
-  next();
-  return this;
+  return next();
 });
 
 module.exports = mongoose.model('users', userSchema);
