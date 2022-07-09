@@ -9,7 +9,7 @@ const { role, JWT_SECRET } = require('../config');
  * @param  {any[]} roles List of roles allowed to access the route
  */
 function auth(roles = []) {
-  roles = roles.length > 0 ? roles : role.USER;
+  const options = roles.length > 0 ? roles : role.USER;
 
   return async (req, res, next) => {
     if (!req.headers.authorization)
@@ -24,7 +24,7 @@ function auth(roles = []) {
       throw new CustomError('Unauthorized access: User has been deactivated', 401);
     if (!user.isVerified)
       throw new CustomError('Unauthorized access: Please verify email address', 401);
-    if (!roles.includes(user.role)) throw new CustomError('Unauthorized access', 401);
+    if (!options.includes(user.role)) throw new CustomError('Unauthorized access', 401);
 
     req.$user = user;
 

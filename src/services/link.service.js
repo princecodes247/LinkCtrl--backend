@@ -4,7 +4,6 @@ const CustomError = require('../utils/custom-error');
 
 class LinkService {
   async create(data) {
-    console.log(this);
     return new Link(data).save();
   }
 
@@ -13,11 +12,11 @@ class LinkService {
   }
 
   async getAll() {
-    return await Link.find({}, { password: 0, __v: 0 });
+    return Link.find({}, { password: 0, __v: 0 });
   }
 
   async getByUserId(userId) {
-    return await Link.find({ user: userId }, { password: 0, __v: 0 });
+    return Link.find({ user: userId }, { password: 0, __v: 0 });
   }
 
   async getOne(linkId) {

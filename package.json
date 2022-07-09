@@ -7,8 +7,8 @@
     "start": "node -r dotenv/config server.js",
     "dev": "nodemon -r dotenv/config server.js dotenv_config_path=./.env.dev",
     "lint": "eslint .",
-"lint:fix": "eslint --fix .",
-"format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "license": "ISC",

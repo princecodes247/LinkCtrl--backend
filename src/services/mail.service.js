@@ -7,9 +7,9 @@ class MailService {
     this.user = user;
   }
 
-  async send(subject, content, recipient, from) {
-    from = from || `${APP_NAME} <no-reply${mailer.DOMAIN}>`;
-    content = content || ' ';
+  async send(subject, argContent, recipient, argFrom) {
+    const from = argFrom || `${APP_NAME} <no-reply${mailer.DOMAIN}>`;
+    const content = argContent || ' ';
 
     if (!recipient || recipient.length < 1) throw new CustomError('Recipient is required');
     if (!subject) throw new CustomError('Subject is required');
@@ -42,7 +42,7 @@ class MailService {
     const content = `Hey ${this.user.name}, Please click on the link to verify your email ${link}`;
     const recipient = this.user.email;
 
-    return await this.send(subject, content, recipient);
+    return this.send(subject, content, recipient);
   }
 
   async sendPasswordResetMail(link) {
@@ -50,7 +50,7 @@ class MailService {
     const content = `Hey ${this.user.name}, Please click on the link to reset your password ${link}`;
     const recipient = this.user.email;
 
-    return await this.send(subject, content, recipient);
+    return this.send(subject, content, recipient);
   }
 }
 

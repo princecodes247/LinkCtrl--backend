@@ -1,5 +1,6 @@
 require('express-async-errors');
 const app = require('express')();
+const mongoConfig = require('./src/config/mongo-db.config');
 
 const { PORT } = process.env;
 
@@ -18,7 +19,7 @@ require('./src/middlewares/error.middleware')(app);
 // Listen to server port
 app.listen(PORT, async () => {
   // Initialize MongoDB
-  await require('./src/config/mongo-db.config')();
+  await mongoConfig();
   console.log(`:::> Server listening on port ${PORT} @ http://localhost:${PORT}`);
 });
 

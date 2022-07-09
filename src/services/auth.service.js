@@ -4,7 +4,7 @@ const crypto = require('crypto');
 
 const User = require('../models/user.model');
 const Token = require('../models/token.model');
-const MailServ = require('./mail.service');
+const MailService = require('./mail.service');
 const CustomError = require('../utils/custom-error');
 const { JWT_SECRET, BCRYPT_SALT, url } = require('../config');
 
@@ -15,19 +15,20 @@ class AuthService {
     if (user) throw new CustomError('Email already exists');
 
     user = new User(data);
+
     const token = JWT.sign({ id: user._id, role: user.role }, JWT_SECRET);
     await user.save();
 
     // Request email verification
     await this.RequestEmailVerification(user.email);
 
-    return (data = {
+    return {
       uid: user._id,
       email: user.email,
       role: user.role,
       verified: user.isVerified,
       token,
-    });
+    };
   }
 
   // User sign in
@@ -47,13 +48,13 @@ class AuthService {
       expiresIn: 60 * 60,
     });
 
-    return (data = {
+    return {
       uid: user._id,
       email: user.email,
       role: user.role,
       verified: user.isVerified,
       token,
-    });
+    };
   }
 
   // Update user password
@@ -65,7 +66,7 @@ class AuthService {
     const isCorrect = await bcrypt.compare(data.password, user.password);
     if (!isCorrect) throw new CustomError('Incorrect password');
 
-    const hash = await bcrypt.hash(password, BCRYPT_SALT);
+    const hash = await bcrypt.hash(data.password, BCRYPT_SALT);
 
     await User.updateOne({ _id: userId }, { $set: { password: hash } }, { new: true });
   }
@@ -91,7 +92,7 @@ class AuthService {
     const link = `${url.CLIENT_URL}/email-verification?uid=${user._id}&verifyToken=${verifyToken}`;
 
     // Send Mail
-    await new MailServ(user).sendEmailVerificationMail(link);
+    await new MailService(user).sendEmailVerificationMail(link);
   }
 
   // Verify user
@@ -133,7 +134,7 @@ class AuthService {
     const link = `${url.CLIENT_URL}/reset-password?uid=${user._id}&resetToken=${resetToken}`;
 
     // Send Mail
-    await new MailServ(user).sendPasswordResetMail(link);
+    await new MailService(user).sendPasswordResetMail(link);
   }
 
   // Resets user password
