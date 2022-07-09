@@ -7,7 +7,7 @@ class LinkService {
     return new Link(data).save();
   }
 
-  async createRandom(data) {
+  async quickCreate(data) {
     return new Link({ url: data.url }).save();
   }
 
@@ -58,7 +58,7 @@ class LinkService {
       return link;
     }
     // Check for max clicks
-    if (link.max_clicks && link.clicks.length >= link.max_clicks) {
+    if (link.max_clicks !== 0 && link.clicks.length >= link.max_clicks) {
       throw new CustomError('This link has reached its max clicks', 401);
     }
     // Check for expiration

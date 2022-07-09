@@ -7,7 +7,7 @@ class LinkContoller {
     res.status(200).send(response('Link created', result));
   }
 
-  async createRandom(req, res) {
+  async quickCreate(req, res) {
     const result = await LinkService.createRandom(req.body);
     res.status(200).send(response('Link created with random id', result));
   }
