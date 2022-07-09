@@ -15,10 +15,10 @@ module.exports = (app) => {
     res.status(400).send(response('Invalid request', null, false));
   });
 
-  app.use((error, req, res, next) => {
-    if (error.name == 'CustomError') {
+  app.use((error, req, res) => {
+    if (error.name === 'CustomError') {
       res.status(error.status).send(response(error.message, null, false));
-    } else if (error.name == 'MongoError' && error.code == 11000) {
+    } else if (error.name === 'MongoError' && error.code === 11000) {
       // Catch duplicate key field error
       const field = Object.entries(error.keyValue)[0][0];
       res.status(400).send(response(`${field} already exists`, null, false));

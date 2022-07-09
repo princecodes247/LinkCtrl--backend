@@ -3,11 +3,11 @@ const CustomError = require('../utils/custom-error');
 
 class UserService {
   async create(data) {
-    return await new User(data).save();
+    return new User(data).save();
   }
 
   async getAll() {
-    return await User.find({}, { password: 0, __v: 0 });
+    return User.find({}, { password: 0, __v: 0 });
   }
 
   async getOne(userId) {

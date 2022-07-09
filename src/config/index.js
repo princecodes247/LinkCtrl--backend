@@ -1,8 +1,10 @@
 const env = process.env.NODE_ENV;
+const development = require('./env/dev.env.json');
+const production = require('./env/prod.env.json');
 
 const environments = {
-  development: require('./env/dev.env.json'),
-  production: require('./env/prod.env.json'),
+  development,
+  production,
 };
 
 // export config for the current environment
