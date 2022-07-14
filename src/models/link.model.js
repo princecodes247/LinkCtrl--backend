@@ -8,7 +8,7 @@ const { Schema } = mongoose;
 const linkSchema = new Schema(
   {
     // Generate id for each link with shortId
-    id: {
+    linkTag: {
       type: String,
       // required: true,
       unique: true,
